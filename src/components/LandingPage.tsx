@@ -125,12 +125,12 @@ export default function LandingPage() {
                {content.hero.subtitle}
             </p>
 
-            <div className="relative group max-w-sm mx-auto">
+            <div className="relative group max-w-xl mx-auto">
                <div 
                  className="absolute -inset-1 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"
                  style={{ backgroundColor: theme.pointColor }}
                />
-               <div className="relative bg-white p-4 rounded-[2rem] border border-black/[0.05] shadow-2xl">
+               <div className="relative p-6 rounded-[2rem] border border-black/[0.05] shadow-2xl" style={{ backgroundColor: theme.pointColor }}>
                  <img 
                    src="./images/hero_mockup.png"
                    alt="Book Mockup" 
