@@ -100,6 +100,58 @@ const AdminSidebar = () => {
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none"
                 />
               </InputGroup>
+              
+              <div className="space-y-4 mt-8 pt-6 border-t border-black/5">
+                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4 block">Hero Buttons</span>
+                {(state.content.hero.buttons || []).map((btn, i) => (
+                  <div key={i} className="p-5 rounded-[2rem] bg-gray-50 border border-black/5 mb-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        {i === 0 ? "Primary Button" : "Secondary Button"}
+                      </span>
+                      <button 
+                        onClick={() => {
+                          const newBtns = (state.content.hero.buttons || []).filter((_, idx) => idx !== i);
+                          updateContent('hero.buttons', newBtns);
+                        }}
+                        className="text-red-400 hover:text-red-600 transition-colors"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                    <InputGroup label="Button Label">
+                      <input 
+                        type="text" 
+                        value={btn.label} 
+                        onChange={(e) => {
+                          const newBtns = [...(state.content.hero.buttons || [])];
+                          newBtns[i].label = e.target.value;
+                          updateContent('hero.buttons', newBtns);
+                        }}
+                        className="w-full bg-white border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none text-gray-900"
+                      />
+                    </InputGroup>
+                    <InputGroup label="Target URL">
+                      <input 
+                        type="text" 
+                        value={btn.url} 
+                        onChange={(e) => {
+                          const newBtns = [...(state.content.hero.buttons || [])];
+                          newBtns[i].url = e.target.value;
+                          updateContent('hero.buttons', newBtns);
+                        }}
+                        className="w-full bg-white border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none text-gray-900"
+                      />
+                    </InputGroup>
+                  </div>
+                ))}
+                <button 
+                  onClick={() => updateContent('hero.buttons', [...(state.content.hero.buttons || []), { label: '새 버튼', url: '#', type: 'secondary' }])}
+                  className="w-full py-3 border border-dashed border-black/20 rounded-xl text-xs text-gray-400 hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus size={14} /> Add Hero Button
+                </button>
+              </div>
             </section>
 
             {/* PROBLEM SECTION */}
@@ -109,10 +161,10 @@ const AdminSidebar = () => {
                   <div className="w-1.5 h-1.5 rounded-full bg-pink-500" /> PROBLEM SECTION
                 </h3>
                 <button 
-                  onClick={() => updateSectionVisibility('problem', !state.content.problem.isEnabled)}
-                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.problem.isEnabled ? "bg-pink-500" : "bg-gray-200")}
+                  onClick={() => updateSectionVisibility('problem', !state.content.problem?.isEnabled)}
+                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.problem?.isEnabled ? "bg-pink-500" : "bg-gray-200")}
                 >
-                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.problem.isEnabled ? "right-1" : "left-1")} />
+                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.problem?.isEnabled ? "right-1" : "left-1")} />
                 </button>
               </div>
               <InputGroup label="Section Title">
@@ -167,16 +219,16 @@ const AdminSidebar = () => {
             </section>
 
             {/* SOLUTION SECTION */}
-            <section className="pt-6 border-t border-white/5">
+            <section className="pt-6 border-t border-black/5">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xs font-black text-white flex items-center gap-2">
+                <h3 className="text-xs font-black text-gray-900 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-pink-500" /> SOLUTION SECTION
                 </h3>
                 <button 
-                  onClick={() => updateSectionVisibility('solution', !state.content.solution.isEnabled)}
-                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.solution.isEnabled ? "bg-pink-500" : "bg-gray-700")}
+                  onClick={() => updateSectionVisibility('solution', !state.content.solution?.isEnabled)}
+                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.solution?.isEnabled ? "bg-pink-500" : "bg-gray-200")}
                 >
-                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.solution.isEnabled ? "right-1" : "left-1")} />
+                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.solution?.isEnabled ? "right-1" : "left-1")} />
                 </button>
               </div>
               <InputGroup label="Section Title">
@@ -184,7 +236,7 @@ const AdminSidebar = () => {
                   type="text" 
                   value={state.content.solution.title} 
                   onChange={(e) => updateContent('solution.title', e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none"
+                  className="w-full bg-black/5 border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none text-gray-900"
                 />
               </InputGroup>
               <InputGroup label="Description">
@@ -192,15 +244,15 @@ const AdminSidebar = () => {
                   rows={2}
                   value={state.content.solution.description} 
                   onChange={(e) => updateContent('solution.description', e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none resize-none"
+                  className="w-full bg-black/5 border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none resize-none text-gray-900"
                 />
               </InputGroup>
               <InputGroup label="Killer Features">
                 <div className="space-y-4">
                   {state.content.solution.features.map((feat, i) => (
-                    <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div key={i} className="p-4 rounded-xl bg-black/5 border border-black/5">
                       <div className="flex justify-between mb-3">
-                        <span className="text-[10px] font-bold text-gray-500">FEATURE {i + 1}</span>
+                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Feature {i + 1}</span>
                         <button 
                           onClick={() => {
                             const newList = state.content.solution.features.filter((_, idx) => idx !== i);
@@ -220,7 +272,7 @@ const AdminSidebar = () => {
                           newList[i].title = e.target.value;
                           updateContent('solution.features', newList);
                         }}
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-xs mb-2 focus:border-pink-500 outline-none"
+                        className="w-full bg-white border border-black/5 rounded-lg px-3 py-2 text-xs mb-2 focus:border-pink-500 outline-none text-gray-900"
                       />
                       <textarea 
                         rows={2}
@@ -231,13 +283,13 @@ const AdminSidebar = () => {
                           newList[i].description = e.target.value;
                           updateContent('solution.features', newList);
                         }}
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none resize-none"
+                        className="w-full bg-white border border-black/5 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none resize-none text-gray-900"
                       />
                     </div>
                   ))}
                   <button 
                     onClick={() => updateContent('solution.features', [...state.content.solution.features, { title: 'New Feature', description: 'Description', icon: 'Zap' }])}
-                    className="w-full py-2 border border-dashed border-white/20 rounded-lg text-xs text-gray-500 hover:text-white transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2 border border-dashed border-black/20 rounded-lg text-xs text-gray-400 hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
                   >
                     <Plus size={12} /> Add Feature
                   </button>
@@ -246,16 +298,16 @@ const AdminSidebar = () => {
             </section>
 
              {/* BOOK FEATURE SECTION */}
-             <section className="pt-6 border-t border-white/5">
+             <section className="pt-6 border-t border-black/5">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xs font-black text-white flex items-center gap-2">
+                <h3 className="text-xs font-black text-gray-900 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-pink-500" /> BOOK FEATURES
                 </h3>
                 <button 
-                  onClick={() => updateSectionVisibility('feature', !state.content.feature.isEnabled)}
-                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.feature.isEnabled ? "bg-pink-500" : "bg-gray-700")}
+                  onClick={() => updateSectionVisibility('feature', !state.content.feature?.isEnabled)}
+                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.feature?.isEnabled ? "bg-pink-500" : "bg-gray-200")}
                 >
-                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.feature.isEnabled ? "right-1" : "left-1")} />
+                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.feature?.isEnabled ? "right-1" : "left-1")} />
                 </button>
               </div>
               <InputGroup label="Section Title">
@@ -263,7 +315,7 @@ const AdminSidebar = () => {
                   type="text" 
                   value={state.content.feature.title} 
                   onChange={(e) => updateContent('feature.title', e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none"
+                  className="w-full bg-black/5 border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none text-gray-900"
                 />
               </InputGroup>
               <InputGroup label="Benefits List">
@@ -278,7 +330,7 @@ const AdminSidebar = () => {
                           newList[i] = e.target.value;
                           updateContent('feature.benefits', newList);
                         }}
-                        className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none"
+                        className="flex-1 bg-black/5 border border-black/5 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none text-gray-900"
                       />
                       <button 
                         onClick={() => {
@@ -293,7 +345,7 @@ const AdminSidebar = () => {
                   ))}
                   <button 
                     onClick={() => updateContent('feature.benefits', [...state.content.feature.benefits, 'New benefit'])}
-                    className="w-full py-2 border border-dashed border-white/20 rounded-lg text-xs text-gray-500 hover:text-white transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2 border border-dashed border-black/20 rounded-lg text-xs text-gray-400 hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
                   >
                     <Plus size={12} /> Add Benefit
                   </button>
@@ -301,17 +353,73 @@ const AdminSidebar = () => {
               </InputGroup>
             </section>
 
-            {/* PROOF SECTION */}
-            <section className="pt-6 border-t border-white/5">
+            {/* ASSISTANTS SECTION */}
+            <section className="pt-6 border-t border-black/5">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xs font-black text-white flex items-center gap-2">
+                <h3 className="text-xs font-black text-gray-900 flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-pink-500" /> ASSISTANTS SECTION
+                </h3>
+                <button 
+                  onClick={() => updateSectionVisibility('assistants', !state.content.assistants?.isEnabled)}
+                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.assistants?.isEnabled ? "bg-pink-500" : "bg-gray-200")}
+                >
+                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.assistants?.isEnabled ? "right-1" : "left-1")} />
+                </button>
+              </div>
+              <InputGroup label="Section Title">
+                <textarea 
+                  rows={2}
+                  value={state.content.assistants.title} 
+                  onChange={(e) => updateContent('assistants.title', e.target.value)}
+                  className="w-full bg-black/5 border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none resize-none text-gray-900"
+                />
+              </InputGroup>
+              <InputGroup label="Assistant Items">
+                <div className="space-y-3">
+                  {state.content.assistants.items.map((item, i) => (
+                    <div key={i} className="flex gap-2">
+                      <input 
+                        type="text" 
+                        value={item} 
+                        onChange={(e) => {
+                          const newList = [...state.content.assistants.items];
+                          newList[i] = e.target.value;
+                          updateContent('assistants.items', newList);
+                        }}
+                        className="flex-1 bg-black/5 border border-black/5 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none text-gray-900"
+                      />
+                      <button 
+                        onClick={() => {
+                          const newList = state.content.assistants.items.filter((_, idx) => idx !== i);
+                          updateContent('assistants.items', newList);
+                        }}
+                        className="p-2 bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500/20"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                  <button 
+                    onClick={() => updateContent('assistants.items', [...state.content.assistants.items, 'New Assistant Item'])}
+                    className="w-full py-2 border border-dashed border-black/20 rounded-lg text-xs text-gray-400 hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Plus size={12} /> Add Item
+                  </button>
+                </div>
+              </InputGroup>
+            </section>
+
+            {/* PROOF SECTION */}
+            <section className="pt-6 border-t border-black/5">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xs font-black text-gray-900 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-pink-500" /> PROOF SECTION
                 </h3>
                 <button 
-                  onClick={() => updateSectionVisibility('proof', !state.content.proof.isEnabled)}
-                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.proof.isEnabled ? "bg-pink-500" : "bg-gray-700")}
+                  onClick={() => updateSectionVisibility('proof', !state.content.proof?.isEnabled)}
+                  className={cn("w-10 h-5 rounded-full relative transition-all", state.content.proof?.isEnabled ? "bg-pink-500" : "bg-gray-200")}
                 >
-                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.proof.isEnabled ? "right-1" : "left-1")} />
+                  <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all", state.content.proof?.isEnabled ? "right-1" : "left-1")} />
                 </button>
               </div>
               <InputGroup label="Section Title">
@@ -319,15 +427,15 @@ const AdminSidebar = () => {
                   type="text" 
                   value={state.content.proof.title} 
                   onChange={(e) => updateContent('proof.title', e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none"
+                  className="w-full bg-black/5 border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none text-gray-900"
                 />
               </InputGroup>
               <InputGroup label="Testimonials">
                 <div className="space-y-4">
                   {state.content.proof.testimonials.map((t, i) => (
-                    <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div key={i} className="p-4 rounded-xl bg-black/5 border border-black/5">
                       <div className="flex justify-between mb-3">
-                        <span className="text-[10px] font-bold text-gray-500">TESTIMONIAL {i + 1}</span>
+                        <span className="text-[10px] font-bold text-gray-500 tracking-widest uppercase">Testimonial {i + 1}</span>
                         <button 
                           onClick={() => {
                             const newList = state.content.proof.testimonials.filter((_, idx) => idx !== i);
@@ -348,7 +456,7 @@ const AdminSidebar = () => {
                             newList[i].name = e.target.value;
                             updateContent('proof.testimonials', newList);
                           }}
-                          className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none"
+                          className="bg-white border border-black/5 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none text-gray-900"
                         />
                         <input 
                           type="text" 
@@ -359,7 +467,7 @@ const AdminSidebar = () => {
                             newList[i].role = e.target.value;
                             updateContent('proof.testimonials', newList);
                           }}
-                          className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none"
+                          className="bg-white border border-black/5 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none text-gray-900"
                         />
                       </div>
                       <textarea 
@@ -371,13 +479,13 @@ const AdminSidebar = () => {
                           newList[i].text = e.target.value;
                           updateContent('proof.testimonials', newList);
                         }}
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none resize-none"
+                        className="w-full bg-white border border-black/5 rounded-lg px-3 py-2 text-xs focus:border-pink-500 outline-none resize-none text-gray-900"
                       />
                     </div>
                   ))}
                   <button 
                     onClick={() => updateContent('proof.testimonials', [...state.content.proof.testimonials, { name: 'New User', role: 'Developer', text: 'Amazing!' }])}
-                    className="w-full py-2 border border-dashed border-white/20 rounded-lg text-xs text-gray-500 hover:text-white transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2 border border-dashed border-black/20 rounded-lg text-xs text-gray-400 hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
                   >
                     <Plus size={12} /> Add Testimonial
                   </button>
@@ -386,8 +494,8 @@ const AdminSidebar = () => {
             </section>
 
             {/* CTA & FOOTER SECTION */}
-            <section className="pt-6 border-t border-white/5">
-              <h3 className="text-xs font-black text-white mb-6 flex items-center gap-2">
+            <section className="pt-6 border-t border-black/5">
+              <h3 className="text-xs font-black text-gray-900 mb-6 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-pink-500" /> CTA & FOOTER
               </h3>
               <InputGroup label="CTA Headline">
@@ -395,37 +503,61 @@ const AdminSidebar = () => {
                   rows={2}
                   value={state.content.cta.headline || ''} 
                   onChange={(e) => updateContent('cta.headline', e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none resize-none"
+                  className="w-full bg-black/5 border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none resize-none text-gray-900"
                 />
               </InputGroup>
-              {state.content.cta.buttons.map((btn, i) => (
-                <div key={i} className="p-4 rounded-2xl bg-white/5 border border-white/5 mb-4">
-                  <InputGroup label={`Button ${i + 1} Label`}>
-                    <input 
-                      type="text" 
-                      value={btn.label} 
-                      onChange={(e) => {
-                        const newBtns = [...state.content.cta.buttons];
-                        newBtns[i].label = e.target.value;
-                        updateContent('cta.buttons', newBtns);
-                      }}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm focus:border-pink-500 outline-none"
-                    />
-                  </InputGroup>
-                  <InputGroup label="Target URL">
-                    <input 
-                      type="text" 
-                      value={btn.url} 
-                      onChange={(e) => {
-                        const newBtns = [...state.content.cta.buttons];
-                        newBtns[i].url = e.target.value;
-                        updateContent('cta.buttons', newBtns);
-                      }}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm focus:border-pink-500 outline-none"
-                    />
-                  </InputGroup>
-                </div>
-              ))}
+              <div className="space-y-4">
+                {state.content.cta.buttons.map((btn, i) => (
+                  <div key={i} className="p-5 rounded-[2rem] bg-gray-50 border border-black/5 mb-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        {i === 0 ? "Primary Button" : "Secondary Button"}
+                      </span>
+                      {i > 0 && (
+                        <button 
+                          onClick={() => {
+                            const newBtns = state.content.cta.buttons.filter((_, idx) => idx !== i);
+                            updateContent('cta.buttons', newBtns);
+                          }}
+                          className="text-red-400 hover:text-red-600 transition-colors"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      )}
+                    </div>
+                    <InputGroup label="Button Label">
+                      <input 
+                        type="text" 
+                        value={btn.label} 
+                        onChange={(e) => {
+                          const newBtns = [...state.content.cta.buttons];
+                          newBtns[i].label = e.target.value;
+                          updateContent('cta.buttons', newBtns);
+                        }}
+                        className="w-full bg-white border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none text-gray-900"
+                      />
+                    </InputGroup>
+                    <InputGroup label="Target URL">
+                      <input 
+                        type="text" 
+                        value={btn.url} 
+                        onChange={(e) => {
+                          const newBtns = [...state.content.cta.buttons];
+                          newBtns[i].url = e.target.value;
+                          updateContent('cta.buttons', newBtns);
+                        }}
+                        className="w-full bg-white border border-black/5 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none text-gray-900"
+                      />
+                    </InputGroup>
+                  </div>
+                ))}
+                <button 
+                  onClick={() => updateContent('cta.buttons', [...state.content.cta.buttons, { label: '새 버튼', url: '#', type: 'secondary' }])}
+                  className="w-full py-3 border border-dashed border-black/20 rounded-xl text-xs text-gray-400 hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus size={14} /> Add Another Button
+                </button>
+              </div>
               <InputGroup label="Footer Copyright Text">
                 <input 
                   type="text" 

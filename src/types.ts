@@ -14,6 +14,7 @@ export interface SectionContent {
 
 export interface HeroSection extends SectionContent {
   hookLine: string;
+  buttons?: CTAButton[];
 }
 
 export interface ProblemSection extends SectionContent {
@@ -31,7 +32,7 @@ export interface SolutionSection extends SectionContent {
 export interface CTAButton {
   label: string;
   url: string;
-  type: 'kyobo' | 'yes24' | 'aladdin' | 'primary';
+  type: 'kyobo' | 'yes24' | 'aladdin' | 'primary' | 'secondary';
 }
 
 export interface LandingPageContent {

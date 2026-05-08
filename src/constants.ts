@@ -10,6 +10,20 @@ export const DEFAULT_CONTENT: AppState = {
       subtitle: '내 일의 주도권, 이제 AI가 아니라 당신이 갖습니다',
       hookLine: '복잡한 코딩 없이, 당신만의 AI 비서를 만드세요.',
       image: './images/hero_mockup.png',
+      buttons: [
+        { label: 'n8n 최고 권위자에게 바로 배우러 가기', url: '#', type: 'primary' },
+        { label: '둘러보기', url: '#problem', type: 'secondary' },
+      ],
+    },
+    feature: {
+      id: 'feature',
+      isEnabled: true,
+      title: '코드 한 줄 몰라도 가능합니다',
+      benefits: [
+        '복잡한 설치 과정 없는 클라우드 환경',
+        '드래그 앤 드롭 방식의 직관적인 디자인',
+        '수백 개의 앱과 즉시 연결되는 강력한 호환성',
+      ],
     },
     problem: {
       id: 'problem',
@@ -56,7 +70,8 @@ export const DEFAULT_CONTENT: AppState = {
     cta: {
       headline: '더이상 업무에 끌려 다니지 마세요',
       buttons: [
-        { label: '지금 바로 나만의 ai 비서 만들기', url: '#', type: 'kyobo' },
+        { label: '지금 바로 나만의 ai 비서 만들기', url: '#', type: 'primary' },
+        { label: '둘러보기', url: '#', type: 'secondary' },
       ],
       footerText: 'ⓒ 2026. 리코멘드 All rights reserved.',
     },

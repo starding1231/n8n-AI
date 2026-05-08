@@ -105,7 +105,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section (Slide 1) */}
-      {content.hero.isEnabled && (
+      {content.hero?.isEnabled && (
         <section id="hero" className="relative min-h-[95vh] flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden" style={{ backgroundColor: theme.backgroundColor }}>
           <div className="absolute inset-0 bg-grid opacity-[0.03]" />
           <FloatingNodes color={theme.pointColor} />
@@ -126,17 +126,65 @@ export default function LandingPage() {
             </p>
 
             <div className="relative group max-w-xl mx-auto">
-               <div 
-                 className="absolute -inset-1 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"
-                 style={{ backgroundColor: theme.pointColor }}
-               />
-               <div className="relative p-6 rounded-[2rem] border border-black/[0.05] shadow-2xl" style={{ backgroundColor: theme.pointColor }}>
+               <div className="relative p-6 rounded-[2rem] border border-black/[0.05]" style={{ backgroundColor: theme.pointColor }}>
                  <img 
                    src="./images/hero_mockup.png"
                    alt="Book Mockup" 
                    className="w-full h-auto rounded-[1.5rem] transition-transform duration-500 group-hover:scale-[1.02]"
                    referrerPolicy="no-referrer"
                  />
+                 
+                 {/* Certification Mark */}
+                 <motion.div
+                   initial={{ scale: 0, rotate: 20 }}
+                   animate={{ scale: 1, rotate: 0 }}
+                   transition={{ delay: 0.6, type: "spring", stiffness: 260, damping: 20 }}
+                   className="absolute -bottom-6 -right-6 sm:-bottom-10 sm:-right-10 w-28 h-28 sm:w-40 sm:h-40 bg-white rounded-full p-1 shadow-2xl flex items-center justify-center z-20 select-none group-hover:rotate-12 transition-transform duration-500"
+                 >
+                   <div 
+                     className="w-full h-full rounded-full flex flex-col items-center justify-center p-3 text-center border-2 border-dashed border-white/40"
+                     style={{ backgroundColor: theme.pointColor, color: 'white' }}
+                   >
+                     <div className="text-[8px] sm:text-[10px] font-black opacity-80 tracking-widest mb-1">OFFICIAL</div>
+                     <span className="font-black text-[10px] sm:text-base leading-tight break-keep">
+                       n8n Global<br/>Ambassador<br/>저자 직강
+                     </span>
+                     <div className="mt-1 flex gap-0.5">
+                       {[1, 2, 3, 4, 5].map((i) => (
+                         <div key={i} className="w-1 h-1 rounded-full bg-white/60" />
+                       ))}
+                     </div>
+                   </div>
+                 </motion.div>
+               </div>
+
+               {/* Hero CTA Buttons */}
+               <div className="mt-12 flex flex-col sm:flex-row gap-4 w-full">
+                 <motion.a
+                   href={content.hero.buttons?.[0]?.url || "#cta"}
+                   whileHover={{ scale: 1.02 }}
+                   whileTap={{ scale: 0.98 }}
+                   className="flex-1 py-6 sm:py-8 rounded-full font-black text-xl sm:text-2xl text-white shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group/btn hover:brightness-110 no-underline select-none"
+                   style={{ backgroundColor: theme.pointColor }}
+                 >
+                   <span className="leading-tight">
+                     {content.hero.buttons?.[0]?.label.includes('배우러 가기') ? (
+                       <>n8n 최고 권위자에게<br className="sm:hidden"/> 바로 배우러 가기</>
+                     ) : (
+                       content.hero.buttons?.[0]?.label || "지금 시작하기"
+                     )}
+                   </span>
+                   <ArrowRight className="w-6 h-6 sm:w-8 sm:h-8 group-hover/btn:translate-x-2 transition-transform" />
+                 </motion.a>
+
+                 <motion.a
+                   href={content.hero.buttons?.[1]?.url || "#"}
+                   whileHover={{ scale: 1.02 }}
+                   whileTap={{ scale: 0.98 }}
+                   className="flex-1 py-6 sm:py-8 rounded-full font-black text-xl sm:text-2xl text-gray-900 bg-white/40 backdrop-blur-md border border-black/5 shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group/btn hover:bg-white/60 no-underline select-none"
+                 >
+                   <span>{content.hero.buttons?.[1]?.label || "둘러보기"}</span>
+                 </motion.a>
                </div>
             </div>
           </motion.div>
@@ -144,7 +192,7 @@ export default function LandingPage() {
       )}
 
       {/* Problem Section (Slide 2) */}
-      {content.problem.isEnabled && (
+      {content.problem?.isEnabled && (
         <section id="problem" className="py-24 sm:py-40 px-6 relative overflow-hidden" 
           style={{ background: `linear-gradient(180deg, #ffffff 0%, ${theme.pointColor}15 50%, #ffffff 100%)` }}>
           <div className="absolute inset-0 bg-grid opacity-[0.03]" />
@@ -242,11 +290,13 @@ export default function LandingPage() {
       </section>
 
       {/* Solution Section (Slide 3) */}
-      {content.solution.isEnabled && (
+      {content.solution?.isEnabled && (
         <section id="solution" className="py-24 sm:py-40 px-6 bg-white overflow-hidden">
           <div className="max-w-7xl mx-auto text-center mb-24">
             <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-8 tracking-tighter text-gray-900 break-keep leading-tight">
-               마우스 드래그 몇 번으로 <br/> 나만의 AI 비서를 깨우세요
+               단순한 매뉴얼이 아닙니다<br/><br/>
+               <span style={{ color: theme.pointColor }}>'수만 명의 수강생이 검증한 '최고의 강의' 커리큘럼을'</span><br/>
+               한 권에 담았습니다
             </h2>
             <p className="text-xl md:text-2xl font-bold text-gray-600 mb-2 leading-[32px]">반복 업무는 n8n에 맡기고,</p>
             <p className="text-xl md:text-2xl font-bold leading-[32px]" style={{ color: theme.pointColor }}>당신의 시간은 오직 당신을 위해서만 사용하세요</p>
@@ -416,42 +466,53 @@ export default function LandingPage() {
         </section>
       )}
 
-      {/* Slide 4 Section: N8N Value */}
-      <section className="py-24 sm:py-40 px-6 relative overflow-hidden" 
-        style={{ background: `linear-gradient(180deg, #ffffff 0%, ${theme.pointColor}15 50%, #ffffff 100%)` }}>
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-                  <h2 className="text-[60px] font-bold leading-[75px] mb-12 tracking-tighter text-gray-900 break-keep">
-            N8N이 선사하는 완전한 자유
-          </h2>
-          <p className="text-xl sm:text-2xl font-bold max-w-4xl mx-auto mb-20 leading-relaxed break-keep" 
-            style={{ color: theme.pointColor }}>
-            자동화는 단순히 시간을 아끼는 기술이 아닙니다,<br className="hidden sm:block" />
-            당신의 소중한 시간을 온전히 당신의 것으로 되찾는 방법입니다
-          </p>
-          
-          <div className="flex items-center justify-center gap-4 sm:gap-10">
-             <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white shadow-xl flex items-center justify-center border border-black/5">
-                <Zap size={32} className="text-gray-400" />
-             </div>
-             <div className="flex gap-2">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.pointColor }} />
-                ))}
-             </div>
-             <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-white shadow-2xl flex items-center justify-center border-4" style={{ borderColor: theme.pointColor }}>
-                <span className="font-black text-2xl" style={{ color: theme.pointColor }}>n8n</span>
-             </div>
-             <div className="flex gap-2">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.pointColor }} />
-                ))}
-             </div>
-             <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white shadow-xl flex items-center justify-center border border-black/5">
-                <Check size={32} className="text-gray-400" />
-             </div>
+      {/* Slide 4 Section: N8N Value / Book Features */}
+      {content.feature?.isEnabled && (
+        <section id="features" className="py-24 sm:py-40 px-6 relative overflow-hidden" 
+          style={{ background: `linear-gradient(180deg, #ffffff 0%, ${theme.pointColor}15 50%, #ffffff 100%)` }}>
+          <div className="max-w-6xl mx-auto text-center relative z-10">
+            <h2 className="text-4xl sm:text-[60px] font-bold sm:leading-[75px] mb-8 tracking-tighter text-gray-900 break-keep">
+              {content.feature.title}
+            </h2>
+            <div className="max-w-4xl mx-auto mb-20 space-y-4">
+              {content.feature.benefits.map((benefit, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center justify-center gap-3 text-xl sm:text-2xl font-bold text-gray-600"
+                >
+                  <CheckCircle2 className="shrink-0" style={{ color: theme.pointColor }} />
+                  <span>{benefit}</span>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="flex items-center justify-center gap-4 sm:gap-10">
+               <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white shadow-xl flex items-center justify-center border border-black/5">
+                  <Zap size={32} className="text-gray-400" />
+               </div>
+               <div className="flex gap-2">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.pointColor }} />
+                  ))}
+               </div>
+               <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-white shadow-2xl flex items-center justify-center border-4" style={{ borderColor: theme.pointColor }}>
+                  <span className="font-black text-2xl" style={{ color: theme.pointColor }}>n8n</span>
+               </div>
+               <div className="flex gap-2">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.pointColor }} />
+                  ))}
+               </div>
+               <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white shadow-xl flex items-center justify-center border border-black/5">
+                  <Check size={32} className="text-gray-400" />
+               </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Message Section */}
       <section className="h-[829px] px-6 bg-white overflow-hidden text-center flex items-center justify-center">
@@ -472,9 +533,27 @@ export default function LandingPage() {
       </section>
 
       {/* Assistants Section (Slide 5) */}
-      {content.assistants.isEnabled && (
+      {content.assistants?.isEnabled && (
         <section id="assistants" className="py-24 sm:py-48 px-6 relative overflow-hidden bg-white">
           <div className="absolute inset-0 bg-grid opacity-[0.03]" />
+          
+          {/* Badge Graphic */}
+          <motion.div
+            initial={{ rotate: -10, opacity: 0, scale: 0.5 }}
+            whileInView={{ rotate: -10, opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="absolute top-8 right-4 sm:right-12 sm:top-24 z-20 w-32 h-32 sm:w-48 sm:h-48 rounded-full flex items-center justify-center p-4 sm:p-8 text-center shadow-2xl border-4 sm:border-8 border-white group hover:scale-110 transition-transform duration-500"
+            style={{ backgroundColor: theme.pointColor, color: 'white' }}
+          >
+            <div className="flex flex-col items-center">
+              <span className="font-black text-sm sm:text-2xl leading-tight break-keep">
+                '최고의 n8n AI 자동화 강의' 독점 예제
+              </span>
+            </div>
+            {/* Inner ring for graphic feel */}
+            <div className="absolute inset-1 sm:inset-2 border-2 border-dashed border-white/30 rounded-full" />
+          </motion.div>
+
           <motion.div 
             initial="hidden"
             whileInView="visible"
@@ -503,6 +582,9 @@ export default function LandingPage() {
                       </motion.div>
                     ))}
                   </div>
+                  <p className="font-bold text-xl sm:text-2xl text-gray-700 mt-12 break-keep leading-snug">
+                    n8n 글로벌 앰배서더가 실무에서 직접 사용하는 최고 수준의 워크플로 제공
+                  </p>
                </div>
                
                 <div className="relative group">
@@ -645,7 +727,7 @@ export default function LandingPage() {
       )}
 
       {/* Proof Section (Slide 6) */}
-      {content.proof.isEnabled && (
+      {content.proof?.isEnabled && (
         <section id="proof" className="py-24 sm:py-40 px-6 relative overflow-hidden" 
           style={{ background: `linear-gradient(180deg, #ffffff 0%, ${theme.pointColor}15 50%, #ffffff 100%)` }}>
           <div className="max-w-7xl mx-auto relative z-10 text-center">
@@ -685,19 +767,28 @@ export default function LandingPage() {
             주도적인 내일을 위한 n8n,<br /> 지금 바로 시작하세요
           </h2>
           
-          <div className="flex flex-col gap-6 sm:gap-10 w-full max-w-md px-4">
-            {content.cta.buttons.slice(0, 1).map((btn, i) => {
+          <div className="flex flex-col gap-6 sm:gap-8 w-full max-w-2xl px-4">
+            {content.cta.buttons.map((btn, i) => {
+              const isPrimary = i === 0;
               return (
                 <motion.a 
                   key={i} 
                   href={btn.url}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative px-10 py-8 rounded-full font-black text-xl sm:text-2xl tracking-tighter text-white shadow-2xl overflow-hidden text-center"
-                  style={{ backgroundColor: theme.pointColor }}
+                  className={cn(
+                    "group relative px-10 py-6 sm:py-8 rounded-full font-black text-xl sm:text-3xl tracking-tighter shadow-2xl overflow-hidden text-center transition-all duration-300",
+                    isPrimary ? "text-white" : "text-gray-900 bg-white border-2"
+                  )}
+                  style={{ 
+                    backgroundColor: isPrimary ? theme.pointColor : 'white',
+                    borderColor: isPrimary ? 'transparent' : theme.pointColor
+                  }}
                 >
-                  <span className="relative z-10 text-[28px]">{btn.label}</span>
-                  <div className="absolute inset-0 bg-black/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  <span className="relative z-10">{btn.label}</span>
+                  {isPrimary && (
+                    <div className="absolute inset-0 bg-black/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  )}
                 </motion.a>
               );
             })}
