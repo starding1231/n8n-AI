@@ -92,6 +92,25 @@ export default function LandingPage() {
     }
   };
 
+  const normalizeUrl = (url: string) => {
+    if (!url) return "#";
+    if (url.startsWith("#") || url.startsWith("/") || url.startsWith("http://") || url.startsWith("https://") || url.startsWith("mailto:") || url.startsWith("tel:")) {
+      return url;
+    }
+    return `https://${url}`;
+  };
+
+  const getLinkProps = (url: string) => {
+    const normalized = normalizeUrl(url);
+    const isAnchor = normalized.startsWith("#");
+    const isRelative = normalized.startsWith("/");
+    return {
+      href: normalized,
+      target: (!isAnchor && !isRelative) ? "_blank" : undefined,
+      rel: (!isAnchor && !isRelative) ? "noopener noreferrer" : undefined,
+    };
+  };
+
   return (
     <div 
       className="min-h-screen text-[#1A1A1E] overflow-x-hidden selection:bg-pink-500/20 relative"
@@ -161,7 +180,7 @@ export default function LandingPage() {
                {/* Hero CTA Buttons */}
                <div className="mt-12 flex flex-col sm:flex-row gap-4 w-full">
                  <motion.a
-                   href={content.hero.buttons?.[0]?.url || "#cta"}
+                   {...getLinkProps(content.hero.buttons?.[0]?.url || "#cta")}
                    whileHover={{ scale: 1.02 }}
                    whileTap={{ scale: 0.98 }}
                    className="flex-1 py-6 sm:py-8 rounded-full font-black text-xl sm:text-2xl text-white shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group/btn hover:brightness-110 no-underline select-none"
@@ -178,7 +197,7 @@ export default function LandingPage() {
                  </motion.a>
 
                  <motion.a
-                   href={content.hero.buttons?.[1]?.url || "#"}
+                   {...getLinkProps(content.hero.buttons?.[1]?.url || "#")}
                    whileHover={{ scale: 1.02 }}
                    whileTap={{ scale: 0.98 }}
                    className="flex-1 py-6 sm:py-8 rounded-full font-black text-xl sm:text-2xl text-gray-900 bg-white/40 backdrop-blur-md border border-black/5 shadow-xl transition-all duration-300 flex items-center justify-center gap-3 group/btn hover:bg-white/60 no-underline select-none"
@@ -773,7 +792,7 @@ export default function LandingPage() {
               return (
                 <motion.a 
                   key={i} 
-                  href={btn.url}
+                  {...getLinkProps(btn.url)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                   className={cn(
