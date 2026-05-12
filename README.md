@@ -4,13 +4,16 @@
 
 ## GitHub Pages 배포 방법 (자동 배포)
 
-이 프로젝트는 GitHub Actions를 통해 코드를 푸시할 때마다 자동으로 배포되도록 설정되어 있습니다. 터미널 명령어를 입력할 필요가 없습니다.
+이 프로젝트는 GitHub Actions를 통해 코드를 푸시할 때마다 자동으로 배포되도록 설정되어 있습니다.
 
 1. 이 프로젝트의 모든 코드를 GitHub 리포지토리의 `main` 브랜치에 업로드(푸시)합니다.
 2. GitHub 리포지토리 페이지에서 **Settings > Pages** 메뉴로 이동합니다.
 3. **Build and deployment > Source** 항목의 드롭다운 메뉴에서 **GitHub Actions**를 선택합니다.
-4. 상단의 **Actions** 탭으로 이동하면 배포가 진행 중인 것을 확인할 수 있습니다.
+4. 상단의 **Actions** 탭으로 이동하면 배포 과정이 표시됩니다.
 5. 배포가 완료되면 `https://starding1231.github.io/-n8n-AI-/` 주소에서 확인 가능합니다.
+
+### 빌드 오류 해결 (Native Binding 관련)
+빌드 중 "Cannot find native binding" 오류가 발생하는 경우를 대비하여, 현재 설정은 `package-lock.json`을 무시하고 매번 새로운 환경에서 의존성을 설치하도록 구성되어 있습니다. 또한 `lightningcss`를 명시적으로 추가하여 Tailwind v4의 빌드 엔진이 정상적으로 작동하도록 조치했습니다.
 
 ### 주요 설정 정보
 - **배포 환경**: Node.js 18
