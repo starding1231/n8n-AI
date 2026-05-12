@@ -1,20 +1,21 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 리코멘드 Landing Page
 
-# Run and deploy your AI Studio app
+이 프로젝트는 Vite + React 기반의 랜딩 페이지입니다.
 
-This contains everything you need to run your app locally.
+## GitHub Pages 배포 방법
 
-View your app in AI Studio: https://ai.studio/apps/e1425846-b2f5-4188-8645-5556965749c4
+이 프로젝트에는 GitHub Actions를 통한 자동 배포 설정이 포함되어 있습니다.
 
-## Run Locally
+1. 이 리포지토리를 GitHub에 업로드합니다.
+2. GitHub 리포지토리의 **Settings > Pages** 메뉴로 이동합니다.
+3. **Build and deployment > Source** 항목에서 `GitHub Actions`를 선택합니다.
+4. 이제 `main` 브랜치에 푸시할 때마다 자동으로 빌드되고 배포됩니다.
 
-**Prerequisites:**  Node.js
+## 수동 빌드 방법
 
+```bash
+npm install
+npm run build
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+빌드된 파일은 `dist` 폴더에 생성됩니다.
