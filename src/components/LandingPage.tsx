@@ -148,12 +148,14 @@ export default function LandingPage() {
 
             <div className="relative group max-w-xl mx-auto">
                <div className="relative p-6 rounded-[2rem] border border-black/[0.05]" style={{ backgroundColor: theme.pointColor }}>
-                 <img 
-                   src="/n8n-AI/images/hero_mockup.png"
-                   alt="Book Mockup" 
+                 <import hero from '../assets/hero.png'
+
+export default function Hero() {
+  return <img src={hero} alt="hero" />
+} 
                    className="w-full h-auto rounded-[1.5rem] transition-transform duration-500 group-hover:scale-[1.02]"
                  />
-                 
+                 }
                  {/* Certification Mark */}
                  <motion.div
                    initial={{ scale: 0, rotate: 20 }}
@@ -267,8 +269,11 @@ export default function LandingPage() {
                 Before
               </div>
               <div className="overflow-hidden rounded-[2.5rem] border border-black/5 shadow-lg bg-gray-200 aspect-[4/3] relative">
-                <img 
-                  src="/n8n-AI/images/problem_before.png" 
+                <import problem_before from '../assets/problem_before.png'
+
+export default function problem_before() {
+  return <img src={problem_before} alt="problem_before" />
+}
                   className="w-full h-full object-cover filter grayscale-[0.5] group-hover:grayscale-0 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-end text-white p-8 text-center backdrop-blur-[1px] pb-12">
@@ -291,8 +296,10 @@ export default function LandingPage() {
                 After
               </div>
               <div className="overflow-hidden rounded-[2.5rem] border border-black/5 shadow-2xl bg-white aspect-[4/3] relative">
-                <img 
-                  src="/n8n-AI/images/problem_after.png" 
+                <import problem_after from '../assets/problem_after.png'
+
+export default function problem_after() {
+  return <img src={problem_after} alt="problem_after" />
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#ef387a]/80 via-transparent to-transparent flex flex-col items-center justify-end text-white p-8 text-center pb-12">
