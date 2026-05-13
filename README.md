@@ -31,9 +31,9 @@
 - **업데이트 일시**: 2026-05-13 00:30 (이미지 정적 자산화 및 절대 경로 고정)
 
 ### 이미지 및 배포 설정
-- **Base URL**: `/-n8n-AI-/` (vite.config.ts)
+- **Base URL**: `./` (vite.config.ts)
 - **React Router**: `HashRouter` 사용 (GitHub Pages 호환성 극대화)
-- **이미지 관리**: `public/assets/images`에 보관하며 `${import.meta.env.BASE_URL}assets/images/...` 경로로 호출합니다. (GitHub Pages 배포 시 절대 경로 안정성 확보)
+- **이미지 관리**: `public/assets/images`에 보관하며 `./assets/images/...` 상대 경로 패턴 적용 (GitHub Pages 배포 시 안정성 확보)
 - **빌드 위치**: `/docs` 폴더 (GitHub Pages 설정 필수)
 
 ## 수동 빌드 방법
