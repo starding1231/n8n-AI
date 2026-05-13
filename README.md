@@ -31,7 +31,7 @@
 - **업데이트 일시**: 2026-05-13 02:33 (Vite base: './' 설정 및 상대 경로 호출로 배포 환경 호환성 극대화)
 
 ### 이미지 및 배포 설정
-- **Base URL**: `./` (vite.config.ts)
+- **Base URL**: `./` (vite.config.ts - 배포 호환성 극대화)
 - **React Router**: `HashRouter` 사용 (GitHub Pages 호환성 극대화)
 - **이미지 관리**: `src/assets/images`에 보관하며 React 컴포넌트에서 `import`하여 사용합니다. (Vite가 배포 환경에 맞춰 최적화된 경로를 생성합니다)
 - **빌드 위치**: `/docs` 폴더 (GitHub Pages 설정 필수)
@@ -43,4 +43,4 @@ npm install
 npm run build
 ```
 
-빌드된 파일은 `dist` 폴더에 생성됩니다.
+빌드된 파일은 `docs` 폴더에 생성됩니다.
