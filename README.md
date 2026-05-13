@@ -28,12 +28,12 @@
 
 
 ### 최근 업데이트
-- **업데이트 일시**: 2026-05-13 02:10 (이미지 경로 단순화 및 상대 경로 안정성 확보)
+- **업데이트 일시**: 2026-05-13 02:27 (GitHub Pages 경로 최적화 및 BASE_URL 적용)
 
 ### 이미지 및 배포 설정
-- **Base URL**: `./` (vite.config.ts)
+- **Base URL**: `/-n8n-AI-/` (vite.config.ts)
 - **React Router**: `HashRouter` 사용 (GitHub Pages 호환성 극대화)
-- **이미지 관리**: `public/images`에 보관하며 `images/...` 단순 상대 경로로 호출합니다. (Vite의 `base: './'` 설정과 결합하여 배포 환경에서 가장 유연한 경로 대응)
+- **이미지 관리**: `public/images`에 보관하며 `${import.meta.env.BASE_URL}images/...` 절대 경로로 호출합니다. (GitHub Pages 배포 시 하위 경로 대응 완벽 지원)
 - **빌드 위치**: `/docs` 폴더 (GitHub Pages 설정 필수)
 
 ## 수동 빌드 방법
