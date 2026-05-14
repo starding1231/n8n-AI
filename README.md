@@ -28,28 +28,21 @@
 
 
 ### 최근 업데이트
-- **업데이트 일시**: 2026-05-14 11:07 (Vite base: '/n8n-AI/' 설정 복구 및 로컬 빌드 가이드 추가)
+- **업데이트 일시**: 2026-05-14 11:14 (Vite base: '/n8n-AI/' 설정 및 배포 가이드 보강)
 
 ### 이미지 및 배포 설정
-- **Base URL**: `/n8n-AI/` (vite.config.ts - 저장소 이름 `/n8n-AI`에 정확히 맞춤)
+- **Base URL**: `/n8n-AI/` (vite.config.ts - 저장소 이름에 맞춤)
 - **React Router**: `HashRouter` 사용 (GitHub Pages 호환성 극대화)
-- **이미지 관리**: `src/assets/images`에 보관하며 React 컴포넌트에서 `import`하여 사용합니다. (Vite가 배포 환경에 맞춰 최적화된 경로를 생성합니다)
 - **빌드 위치**: `/docs` 폴더 (GitHub Pages 설정: Branch `main`, Folder `/docs` 필수)
 
-### 로컬 빌드 및 배포 방법 (Troubleshooting)
-GitHub Pages 404 오류나 빌드 오류가 발생할 경우 다음 순서로 진행하세요:
-
-1. **저장소 이름 확인**: 현재 설정은 저장소 이름이 `n8n-AI`인 것을 가정합니다. 만약 이름이 다르다면 `vite.config.ts`의 `base` 설정을 변경해야 합니다.
-2. **로컬 빌드 에러 시**:
-   ```bash
-   # 기존 모듈 제거
-   rm -rf node_modules package-lock.json
-   # 다시 설치 (Clean Install)
-   npm install
-   # 빌드 실행
-   npm run build
-   ```
-3. **배포 확인**: 빌드 후 생성된 `docs` 폴더의 모든 내용을 GitHub에 push한 뒤, `Settings > Pages`에서 배포가 완료될 때까지(약 1~2분) 기다리세요.
+### GitHub Pages 배포 시 404 오류 해결 방법
+1. **파일 확인**: 현재 구글 AI 스튜디오의 `/docs` 폴더 안에 `index.html`이 정상적으로 생성된 것을 확인했습니다.
+2. **Push 확인**: 로컬 저장소에서 `docs` 폴더의 변경사항을 반드시 stage(`git add docs`)하고 commit/push 해야 합니다.
+3. **GitHub 설정 다시 확인**:
+   - Repository `Settings` > `Pages` 이동
+   - **Build and deployment** > **Source**: `Deploy from a branch`
+   - **Branch**: `main` 선택, 폴더는 반드시 **`/docs`**로 선택 후 `Save`
+4. **캐시 및 대기**: 설정 변경 후 상단의 배포 상태가 "Your site is live at..."으로 바뀔 때까지 1~2분 정도 기다린 후, 브라우저 캐시를 새로고침(Ctrl+F5)하여 확인하세요.
 
 ### 개발 및 빌드 명령어
 ```bash
