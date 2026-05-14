@@ -207,6 +207,7 @@ export default function LandingPage() {
                    <span>{content.hero.buttons?.[1]?.label || "둘러보기"}</span>
                  </motion.a>
             </div>
+              <p class>
   <p className="mt-10 text-xl sm:text-2xl font-bold text-black break-keep leading-relaxed px-4">
   {content.hero.ctaLine}
 </p>
