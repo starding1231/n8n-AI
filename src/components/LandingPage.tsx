@@ -213,7 +213,7 @@ export default function LandingPage() {
 
       {/* Problem Section (Slide 2) */}
       {content.problem?.isEnabled && (
-        <section id="problem" className="py-24 sm:py-40 px-6 relative overflow-hidden" 
+        <section id="problem" className="py-24 sm:py-40 px-6 relative" 
           style={{ background: `linear-gradient(180deg, #ffffff 0%, ${theme.pointColor}15 50%, #ffffff 100%)` }}>
           <div className="absolute inset-0 bg-grid opacity-[0.03]" />
           <p class>
