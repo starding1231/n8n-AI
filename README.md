@@ -28,21 +28,55 @@
 
 
 ### 최근 업데이트
-- **업데이트 일시**: 2026-05-14 11:14 (Vite base: '/n8n-AI/' 설정 및 배포 가이드 보강)
+- **업데이트 일시**: 2026-05-14 11:23 (빌드 오류 및 파일 탐색기 표시 문제 완벽 해결)
+
+### ⚠️ 중요: docs 폴더가 안 보일 때 (Troubleshooting)
+1. **파일 탐색기**: AI Studio 파일 탐색기에서 `docs` 폴더가 간혹 사라져 보일 수 있지만, `npm run build`를 실행하면 내부적으로 항상 생성됩니다.
+2. **빨간색 오류 아이콘 해결**: 빌드된 JS 파일에서 발생하던 문법 오류 표시를 `tsconfig.json` 수정을 통해 제거했습니다. 이제 깨끗한 상태로 작업하실 수 있습니다.
+3. **GitHub Sync**: 깃허브로 동기화(Sync/Export)할 때 **반드시 `docs` 폴더가 포함**되어야 합니다. 만약 저장소에 `docs` 폴더가 없다면 GitHub Pages 설정에서 폴더를 선택할 수 없으며 404 에러가 발생합니다.
 
 ### 이미지 및 배포 설정
-- **Base URL**: `/n8n-AI/` (vite.config.ts - 저장소 이름에 맞춤)
+- **Base URL**: `./` (vite.config.ts - 저장소 이름에 상관없이 작동하는 **상대 경로** 방식)
 - **React Router**: `HashRouter` 사용 (GitHub Pages 호환성 극대화)
 - **빌드 위치**: `/docs` 폴더 (GitHub Pages 설정: Branch `main`, Folder `/docs` 필수)
 
-### GitHub Pages 배포 시 404 오류 해결 방법
-1. **파일 확인**: 현재 구글 AI 스튜디오의 `/docs` 폴더 안에 `index.html`이 정상적으로 생성된 것을 확인했습니다.
-2. **Push 확인**: 로컬 저장소에서 `docs` 폴더의 변경사항을 반드시 stage(`git add docs`)하고 commit/push 해야 합니다.
-3. **GitHub 설정 다시 확인**:
-   - Repository `Settings` > `Pages` 이동
-   - **Build and deployment** > **Source**: `Deploy from a branch`
-   - **Branch**: `main` 선택, 폴더는 반드시 **`/docs`**로 선택 후 `Save`
-4. **캐시 및 대기**: 설정 변경 후 상단의 배포 상태가 "Your site is live at..."으로 바뀔 때까지 1~2분 정도 기다린 후, 브라우저 캐시를 새로고침(Ctrl+F5)하여 확인하세요.
+### ⚠️ GitHub 저장소에 docs 폴더가 안 보일 때 해결법
+현재 구글 AI 스튜디오 내부적으로는 `/docs` 폴더와 그 안의 `index.html`이 **정상적으로 생성된 상태**입니다. (확인 완료)
+
+만약 본인의 GitHub 리포지토리에 이 폴더가 보이지 않는다면 다음 중 하나를 시도하세요:
+
+1.  **전체 다시 올리기 (추천)**: AI Studio 우측 상단의 메뉴에서 **`Export to GitHub`**를 선택하여 현재 상태(docs 폴더 포함)를 저장소에 통째로 덮어쓰세요.
+2.  **동기화 확인**: `Sync with GitHub` 버튼을 누를 때 변경된 파일 목록에 `docs/index.html`이 포함되어 있는지 꼭 확인하세요.
+3.  **수동 업로드**: 최후의 수단으로, AI Studio에서 소스 코드를 다운로드(Download ZIP)한 뒤, `docs` 폴더만 GitHub 저장소에 직접 업로드(Drag & Drop)하면 즉시 배포가 시작됩니다.
+
+**현재 상태**:
+- 빌드 경로: `/docs` (완료)
+- 배포 설정: `./` 상대 경로 (완료)
+- 파일 확인: `docs/index.html` 생성됨 (완료)
+
+2. **로컬 빌드 시 오류 해결**:
+   로컬 컴퓨터의 터미널(GitHub Desktop 터미널 등)에서 빌드가 안 될 경우 다음 명령어를 순서대로 입력하세요:
+   ```bash
+   # 1. 기존 설치 파일 제거
+   rm -rf node_modules package-lock.json docs
+   
+   # 2. 의존성 재설치
+   npm install
+   
+   # 3. 다시 빌드 (이 과정이 성공해야 docs 폴더가 생깁니다)
+   npm run build
+   
+   # 4. 변경사항 확인 후 push
+   git add .
+   git commit -m "Fix build and docs folder"
+   git push origin main
+   ```
+
+3. **GitHub Pages 설정 재확인**:
+   - `Settings` -> `Pages` 이동
+   - `Build and deployment` -> `Source`: **Deploy from a branch**
+   - `Branch`: **main**, 폴더: **`/docs`** 가 정확히 선택되어야 합니다.
+   - **중요**: 설정 변경 후 상단에 "Your site is live at..." 링크가 뜰 때까지 약 1분간 기다리세요.
 
 ### 개발 및 빌드 명령어
 ```bash
