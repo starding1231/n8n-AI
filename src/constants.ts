@@ -14,7 +14,7 @@ export const DEFAULT_CONTENT: AppState = {
         { label: '최고의 강의 10% 할인가로 소장하기', url: 'https://product.kyobobook.co.kr/detail/S000219926914', type: 'primary' },
         { label: '둘러보기', url: '#problem', type: 'secondary' },
       ],
-       hookLine: '끝까지 확인하고 최고의 강의를 가장 먼저 만나는 혜택을 누리세요!',
+       ctaLine: '끝까지 확인하고 최고의 강의를 가장 먼저 만나는 혜택을 누리세요!',
     },
     feature: {
       id: 'feature',
